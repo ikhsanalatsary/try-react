@@ -1,50 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// const Greeter = React.createClass({
-//   render() {
-//     return <h1>Greeter World</h1>
-//   }
-// });
+class Hello extends React.Component {
+  render() {
+    var name = this.props.name;
+    var message = this.props.message;
+    return (
+      <div>
+        <h1>Hello Mr./Mrs. {name}</h1>
+        <p>Dari {message}</p>
+      </div>
+    );
+  }
+}
+
+class GreeterForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
+
+  onFormSubmit(e) {
+    e.preventDefault();
+    var nameRef = this.refs.name;
+    var name = nameRef.value;
+
+    if (typeof name === 'string' && name.length > 0) {
+      nameRef.value = '';
+      console.log(this.props.onNewName);
+      this.props.onNewName(name);
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.onFormSubmit}>
+          <input type="text" ref="name"/>
+          <button type="submit">Set Name</button>
+        </form>
+      </div>
+    );
+  }
+}
 
 class Greeter extends React.Component {
   constructor(props) {
     super(props);
     // initialize
-    this.onButtonClick = this.onButtonClick.bind(this);
+    this.handleNewName = this.handleNewName.bind(this);
     this.state = {
       name: this.props.name
     }
     console.log(this);
   }
-  onButtonClick(e) {
-    e.preventDefault();
-    console.log(this.refs.name.value);
-    // alert(this.refs.name.value);
-    var nameRef = this.refs.name;
-    var name = nameRef.value;
 
-    if (typeof name === 'string' && name.length > 0) {
-      this.setState({
-        name
-      });
-      nameRef.value = '';
-    }
+  handleNewName(name) {
+    this.setState({
+      name
+    });
   }
 
   render() {
-    console.log(this);
     var name = this.state.name;
     var message = this.props.message;
     return (
       <div>
-        <h1>Hello {name}</h1>
-        <p>{message}</p>
+        <Hello name={name} message={message}/>
 
-        <form onSubmit={this.onButtonClick}>
-          <input type="text" ref="name"/>
-          <button type="submit">Set Name</button>
-        </form>
+        <h3>greeter form</h3>
+        <GreeterForm onNewName={this.handleNewName}/>
       </div>
     );
   }

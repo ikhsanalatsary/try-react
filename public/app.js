@@ -23,14 +23,21 @@ class GreeterForm extends React.Component {
 
   onFormSubmit(e) {
     e.preventDefault();
+    let data = {};
     var nameRef = this.refs.name;
+    var messageRef = this.refs.message;
     var name = nameRef.value;
+    var message = messageRef.value;
 
-    if (typeof name === 'string' && name.length > 0) {
+    if (name.length > 0 || message.length > 0) {
+      // console.log(this.props.onNewName);
       nameRef.value = '';
-      console.log(this.props.onNewName);
-      this.props.onNewName(name);
+      messageRef.value = '';
+      data.name = name;
+      data.message= message;
     }
+
+    this.props.onNewName(data);
   }
 
   render() {
@@ -38,7 +45,8 @@ class GreeterForm extends React.Component {
       <div>
         <form onSubmit={this.onFormSubmit}>
           <input type="text" ref="name"/>
-          <button type="submit">Set Name</button>
+          <textarea ref="message" rows="8" cols="40"></textarea>
+          <button type="submit">submit</button>
         </form>
       </div>
     );
@@ -51,20 +59,20 @@ class Greeter extends React.Component {
     // initialize
     this.handleNewName = this.handleNewName.bind(this);
     this.state = {
-      name: this.props.name
+      name: this.props.name,
+      message: this.props.message
     }
     console.log(this);
   }
 
-  handleNewName(name) {
-    this.setState({
-      name
-    });
+  handleNewName(data) {
+    console.log(data);
+    this.setState(data);
   }
 
   render() {
     var name = this.state.name;
-    var message = this.props.message;
+    var message = this.state.message;
     return (
       <div>
         <Hello name={name} message={message}/>

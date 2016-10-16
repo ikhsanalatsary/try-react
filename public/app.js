@@ -1,15 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  Button,
+  Checkbox,
+  Col,
+  ControlLabel,
+  Form,
+  FormControl,
+  FormGroup,
+  PageHeader
+} from 'react-bootstrap';
 
 class Hello extends React.Component {
   render() {
     var name = this.props.name;
     var message = this.props.message;
     return (
-      <div>
-        <h1>Hello Mr./Mrs. {name}</h1>
+      <Col md={6} mdOffset={3}>
+        <PageHeader>Hello {name}</PageHeader>
         <p>Dari {message}</p>
-      </div>
+      </Col>
     );
   }
 }
@@ -23,17 +33,21 @@ class GreeterForm extends React.Component {
 
   onFormSubmit(e) {
     e.preventDefault();
+    console.log(ReactDOM.findDOMNode(this.refs.name).value);
     let data = {};
-    var nameRef = this.refs.name;
-    var messageRef = this.refs.message;
+    var nameRef = ReactDOM.findDOMNode(this.refs.name);
+    var messageRef = ReactDOM.findDOMNode(this.refs.message);
     var name = nameRef.value;
     var message = messageRef.value;
 
-    if (name.length > 0 || message.length > 0) {
+    if (name.length > 0) {
       // console.log(this.props.onNewName);
       nameRef.value = '';
-      messageRef.value = '';
       data.name = name;
+    }
+
+    if ( message.length > 0) {
+      messageRef.value = '';
       data.message= message;
     }
 
@@ -42,13 +56,36 @@ class GreeterForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.onFormSubmit}>
-          <input type="text" ref="name"/>
-          <textarea ref="message" rows="8" cols="40"></textarea>
-          <button type="submit">submit</button>
-        </form>
-      </div>
+      <Col md={6} mdOffset={3}>
+      <h3>Greeter Form</h3>
+      <Form horizontal onSubmit={this.onFormSubmit}>
+        <FormGroup controlId="formHorizontalName">
+          <Col componentClass={ControlLabel} sm={2}>
+            Name
+          </Col>
+          <Col sm={10}>
+            <FormControl type="text" name="name" ref="name" placeholder="Name" />
+          </Col>
+        </FormGroup>
+
+        <FormGroup controlId="formHorizontalTextarea">
+          <Col componentClass={ControlLabel} sm={2}>
+            Textarea
+          </Col>
+          <Col sm={10}>
+            <FormControl componentClass="textarea" ref="message" placeholder="textarea" />
+          </Col>
+        </FormGroup>
+
+        <FormGroup>
+          <Col smOffset={2} sm={10}>
+            <Button type="submit">
+              Submit
+            </Button>
+          </Col>
+        </FormGroup>
+      </Form>
+      </Col>
     );
   }
 }
@@ -74,12 +111,11 @@ class Greeter extends React.Component {
     var name = this.state.name;
     var message = this.state.message;
     return (
-      <div>
+      <Col md={12}>
         <Hello name={name} message={message}/>
-
-        <h3>greeter form</h3>
+        <br/>
         <GreeterForm onNewName={this.handleNewName}/>
-      </div>
+      </Col>
     );
   }
 }

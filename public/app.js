@@ -41,7 +41,7 @@ class GreeterForm extends React.Component {
     var message = messageRef.value;
 
     if (name.length > 0) {
-      // console.log(this.props.onNewName);
+      // console.log(this.props.onNewData);
       nameRef.value = '';
       data.name = name;
     }
@@ -51,7 +51,7 @@ class GreeterForm extends React.Component {
       data.message= message;
     }
 
-    this.props.onNewName(data);
+    this.props.onNewData(data);
   }
 
   render() {
@@ -73,7 +73,7 @@ class GreeterForm extends React.Component {
             Textarea
           </Col>
           <Col sm={10}>
-            <FormControl componentClass="textarea" ref="message" placeholder="textarea" />
+            <FormControl componentClass="textarea" ref="message" placeholder="Message" />
           </Col>
         </FormGroup>
 
@@ -94,7 +94,7 @@ class Greeter extends React.Component {
   constructor(props) {
     super(props);
     // initialize
-    this.handleNewName = this.handleNewName.bind(this);
+    this.handleNewData = this.handleNewData.bind(this);
     this.state = {
       name: this.props.name,
       message: this.props.message
@@ -102,7 +102,7 @@ class Greeter extends React.Component {
     console.log(this);
   }
 
-  handleNewName(data) {
+  handleNewData(data) {
     console.log(data);
     this.setState(data);
   }
@@ -114,7 +114,7 @@ class Greeter extends React.Component {
       <Col md={12}>
         <Hello name={name} message={message}/>
         <br/>
-        <GreeterForm onNewName={this.handleNewName}/>
+        <GreeterForm onNewData={this.handleNewData}/>
       </Col>
     );
   }

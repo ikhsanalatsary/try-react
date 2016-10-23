@@ -4,6 +4,15 @@ const webpack = require('webpack');
 module.exports = {
   entry: './public/app.js',
   output: { path: './public', filename: 'bundle.js' },
+  resolve: {
+    root: __dirname,
+    alias: {
+      Greeter: 'public/components/Greeter.js',
+      GreeterForm: 'public/components/GreeterForm.js',
+      Hello: 'public/components/Hello.js',
+    },
+    extentions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       {

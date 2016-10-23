@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import Hello from './Hello.js';
-import GreeterForm from './GreeterForm.js';
+import Hello from 'Hello';
+import GreeterForm from 'GreeterForm';
 
 export default class Greeter extends React.Component {
   constructor(props) {

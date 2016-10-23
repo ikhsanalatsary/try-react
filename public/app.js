@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Greeter from './components/Greeter.js';
+import Greeter from 'Greeter';
 
 const firstName = 'Ikhsan';
 
